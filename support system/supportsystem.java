@@ -1,17 +1,17 @@
 public class SupportSystem {
     private InputReader reader;
     private Responder responder;
-    private Customer[] customerList;
-    private int customerCount;
-    private int state; 
-    private String currentIdentity; 
+    private Customer[] customerList;  // Array to store customers
+    private int customerCount;  // Track how many customers have been added
+    private int state;  // To track the conversation state
+    private String currentIdentity;  // Temporarily store customer identity
 
     public SupportSystem() {
         reader = new InputReader();
         responder = new Responder();
-        customerList = new Customer[10]; 
+        customerList = new Customer[10];  // Fixed-size array for up to 10 customers
         customerCount = 0;
-        state = 1;  
+        state = 1;  // Start by asking for identity
     }
 
     public void start() {
@@ -29,7 +29,7 @@ public class SupportSystem {
                 if (state == 1) {
                     currentIdentity = input;
                     state = 2;
-                    System.out.println(responder.generateResponse(state)); 
+                    System.out.println(responder.generateResponse(state));  // Ask for the problem
                 } else if (state == 2) {
                     if (customerCount < customerList.length) {
                         customerList[customerCount] = new Customer(currentIdentity, input);
@@ -37,16 +37,17 @@ public class SupportSystem {
                     } else {
                         System.out.println("Customer list is full.");
                     }
-                    state = 3;
-                    System.out.println(responder.generateResponse(state));  
+                    state = 3;  // Switch to generating random responses
+                    System.out.println(responder.generateResponse(state));  // Generate the first random response
                 } else {
-                    System.out.println(responder.generateResponse(state)); 
+                    System.out.println(responder.generateResponse(state));  // Continue with random responses
                 }
             }
         }
         printGoodbye();
     }
 
+    // Now a public method to be accessed via right-click in BlueJ
     public void listAllCustomers() {
         if (customerCount == 0) {
             System.out.println("No customers available.");
@@ -58,13 +59,11 @@ public class SupportSystem {
         }
     }
     
-    private void printWelcome() {
+        private void printWelcome() {
         System.out.println("Welcome to the Technical Support System.");
         System.out.println();
-        System.out.println("Please tell us about your problem.");
-        System.out.println("We will assist you with any problem you might have.");
+        System.out.println("Please tell us your name.");
         System.out.println("Please type 'bye' to exit our system.");
-        System.out.println("Type 'list' to see all customers.");
     }
 
     private void printGoodbye() {
