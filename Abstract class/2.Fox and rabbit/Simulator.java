@@ -1,28 +1,29 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Simulator {
     private Field field;
-    private List<Animal> animals;
+    private ArrayList<Animal> animals;
 
-    public Simulator(int depth, int width) {
-        field = new Field(depth, width);
+    public Simulator(int rows, int cols) {
+        field = new Field(rows, cols);
         animals = new ArrayList<>();
-        populate();
+    }
+
+    public void addAnimal(Animal animal) {
+        animals.add(animal);
+    }
+
+    public Field getField() {
+        return field;
     }
 
     public void simulate(int steps) {
-        for (int step = 0; step < steps; step++) {
-            List<Animal> newAnimals = new ArrayList<>();
-            
-            for (Animal animal : animals) {
-                animal.act(newAnimals);
+        for (int step = 1; step <= steps; step++) {
+            System.out.println("Step " + step + ":");
+            for (Animal animal : new ArrayList<>(animals)) {
+                animal.act();
             }
-            animals.addAll(newAnimals);
+            System.out.println();
         }
-    }
-
-    private void populate() {
-        // Logika untuk mengisi field dengan foxes dan rabbits
     }
 }
